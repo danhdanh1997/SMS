@@ -23,11 +23,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.*;
-
+@SecurityRequirement(name = "Authorization")
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
-@SecurityRequirement(name = "xuandanh")
 public class StoreResources {
     private final StoreRepository storeRepository;
     private final StoreService storeService;

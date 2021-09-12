@@ -42,9 +42,9 @@ public class City implements Serializable{
 
     private int countriesId;
 
-    @OneToMany(mappedBy="city")
-    private List<Store>store;
-
-    @OneToMany(mappedBy="city")
-    private List<Supplier>suppliers;
+//    @OneToMany(mappedBy="city",cascade={CascadeType.ALL,CascadeType.REMOVE},orphanRemoval = true)
+//    private List<Store>store;
+//
+//    @OneToMany(mappedBy="city",cascade={CascadeType.ALL,CascadeType.REMOVE},orphanRemoval = true)
+//    private List<Supplier>suppliers;
 }

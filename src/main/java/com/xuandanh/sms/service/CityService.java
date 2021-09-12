@@ -53,8 +53,6 @@ public class CityService {
                                 city1.setCountriesId(country.getCountriesId());
                                 city1.setCitiesName(city.getCitiesName());
                                 city1.setLastUpdate(city.getLastUpdate());
-                                city1.setStore(city.getStore());
-                                city1.setSuppliers(city.getSuppliers());
                                 return cityMapper.cityToCityDTO(cityRepository.save(city1));
                             }).orElseThrow(() -> new ResourceNotFoundException("city with id:" + city.getCitiesId() + " not exist"));
                     return cityMapper.cityToCityDTO(cityRepository.save(city));

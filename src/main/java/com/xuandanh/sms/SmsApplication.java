@@ -10,11 +10,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@SecurityScheme(name = "xuandanh", scheme = "basic", type = SecuritySchemeType.HTTP, in = SecuritySchemeIn.HEADER)
+@SecurityScheme(name = "Authorization",type = SecuritySchemeType.APIKEY, in = SecuritySchemeIn.HEADER)
 //@ApiOperation(value = "", authorizations = { @Authorization(value="jwtToken") })
+
 public class SmsApplication {
     public static void main(String[] args) {
         SpringApplication.run(SmsApplication.class, args);
     }
-
 }

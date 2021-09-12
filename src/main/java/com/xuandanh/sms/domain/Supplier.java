@@ -40,6 +40,6 @@ public class Supplier {
 
     private int citiesId;
 
-    @OneToMany(mappedBy="supplier")
-    private List<Product> products;
+//    @OneToMany(mappedBy="supplier")
+//    private List<Product> products;
 }

@@ -10,7 +10,9 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Getter
@@ -37,6 +39,6 @@ public class Store {
 
     private int citiesId;
 
-    @OneToMany(mappedBy="store")
-    private List<Staff> staff;
+//    @OneToMany(mappedBy="store")
+//    private Set<Staff> staff = new HashSet<>();
 }

@@ -51,7 +51,6 @@ public class SupplierService {
                                 supplier1.setCitiesId(city.getCitiesId());
                                 supplier1.setPhone(supplier.getPhone());
                                 supplier1.setWebsiteUrl(supplier.getWebsiteUrl());
-                                supplier1.setProducts(supplier.getProducts());
                                 return supplierMapper.supplierToSupplierDTO(supplierRepository.save(supplier1));
                             }).orElseThrow(() -> new ResourceNotFoundException("supplier with id:" + supplier.getSuppliersId() + " not exist"));
                     return supplierMapper.supplierToSupplierDTO(supplierRepository.save(supplier));

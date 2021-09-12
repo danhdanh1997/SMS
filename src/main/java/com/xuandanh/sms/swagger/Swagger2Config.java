@@ -11,8 +11,8 @@ import springfox.documentation.service.SecurityReference;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger.web.ApiKeyVehicle;
 import springfox.documentation.swagger.web.SecurityConfiguration;
-import springfox.documentation.swagger.web.SecurityConfigurationBuilder;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Collections;
@@ -127,9 +127,9 @@ public class Swagger2Config {
     }
 
 
-    private ApiKey apiKey() {
-        return new ApiKey("Bearer", "Authorization", "header");
-    }
+//    private ApiKey apiKey() {
+//        return new ApiKey("JWT", "Authorization", "header");
+//    }
 
     private SecurityContext securityContext() {
         return SecurityContext.builder().securityReferences(defaultAuth())
@@ -141,14 +141,27 @@ public class Swagger2Config {
                 "global", "accessEverything");
         AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
         authorizationScopes[0] = authorizationScope;
-        return Collections.singletonList(new SecurityReference("Bearer",
+        return Collections.singletonList(new SecurityReference("JWT",
                 authorizationScopes));
     }
 
+//    @Bean
+//    public SecurityConfiguration security() {
+//        return SecurityConfigurationBuilder.builder().scopeSeparator(",")
+//                .additionalQueryStringParams(null)
+//                .useBasicAuthenticationWithAccessCodeGrant(false).build();
+//    }
+
+    private ApiKey apiKey() {
+        return new ApiKey("apiKey", "Authorization", "header");
+    }
+
     @Bean
-    public SecurityConfiguration security() {
-        return SecurityConfigurationBuilder.builder().scopeSeparator(",")
-                .additionalQueryStringParams(null)
-                .useBasicAuthenticationWithAccessCodeGrant(false).build();
+    SecurityConfiguration security() {
+        return new SecurityConfiguration(
+                null, null, null,
+                "Docserver2_fwk", // app name
+                "BEARER", // api key value
+                ApiKeyVehicle.HEADER, "Authorization", ",");
     }
 }

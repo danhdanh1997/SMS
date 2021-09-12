@@ -6,7 +6,10 @@ import com.xuandanh.sms.exception.ResourceNotFoundException;
 import com.xuandanh.sms.mapper.CategoryMapper;
 import com.xuandanh.sms.repository.CategoryRepository;
 import com.xuandanh.sms.service.CategoryService;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,11 +22,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.*;
-
+@SecurityRequirement(name = "Authorization")
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
-@SecurityRequirement(name = "xuandanh")
 public class CategoryResources {
     private final CategoryService categoryService;
     private final CategoryRepository categoryRepository;

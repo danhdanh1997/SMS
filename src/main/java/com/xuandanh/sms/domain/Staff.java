@@ -19,9 +19,9 @@ import java.util.Set;
 @Entity
 @Table(name = "staff")
 public class Staff {
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid")
-    @Column(columnDefinition = "CHAR(10)",name = "staff_id")
+//    @GeneratedValue(generator = "uuid")
+//    @GenericGenerator(name = "uuid", strategy = "uuid")
+    @Column(name = "staff_id")
     @Id
     private String staffId;
 
@@ -50,9 +50,11 @@ public class Staff {
     private String imageUrl;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "store_id", nullable = false,referencedColumnName = "store_id")
+    @JoinColumn(name = "storeId", nullable = false,referencedColumnName = "store_id",insertable = false,updatable = false)
     private Store store;
 
-    @OneToMany(mappedBy="staff",cascade={CascadeType.ALL,CascadeType.REMOVE},orphanRemoval = true)
-    private Set<Order> orders = new HashSet<>();
+    private int storeId;
+
+//    @OneToMany(mappedBy="staff",cascade={CascadeType.ALL,CascadeType.REMOVE},orphanRemoval = true)
+//    private Set<Order> orders = new HashSet<>();
 }

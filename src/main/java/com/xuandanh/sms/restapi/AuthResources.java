@@ -45,7 +45,6 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@SecurityRequirement(name = "xuandanh")
 public class AuthResources {
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;

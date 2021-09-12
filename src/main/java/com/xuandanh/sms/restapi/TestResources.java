@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+@SecurityRequirement(name = "Authorization")
 @RestController
 @RequestMapping("/api/test")
-@SecurityRequirement(name = "xuandanh")
 public class TestResources {
     @GetMapping("/all")
     public String allAccess() {

@@ -31,10 +31,12 @@ public class StoreService {
     private final Logger log = LoggerFactory.getLogger(StoreService.class);
 
     public Optional<StoreDTO>findOne(int storeId){
-        return Optional.ofNullable(storeMapper
-                .storeToStoreDTO(storeRepository
-                .findById(storeId)
-                .orElseThrow(()-> new ResourceNotFoundException("store with id:"+ storeId +" not exist"))));
+        Optional<Store>store = storeRepository.findById(storeId);
+        if (store.isEmpty()){
+            log.error("store with id:"+storeId+" not exist");
+            return Optional.empty();
+        }
+        return Optional.ofNullable(storeMapper.storeToStoreDTO(store.get()));
     }
 
     public Optional<List<StoreDTO>>findAll(){
@@ -62,7 +64,6 @@ public class StoreService {
                                 store1.setStoreName(store.getStoreName());
                                 store1.setCitiesId(city.getCitiesId());
                                 store1.setLastUpdate(store.getLastUpdate());
-                                store1.setStaff(store.getStaff());
                                 return storeMapper.storeToStoreDTO(storeRepository.save(store1));
                             }).orElseThrow(() -> new ResourceNotFoundException("store with id:" + store.getStoreId() + " not exist"));
                     return storeMapper.storeToStoreDTO(storeRepository.save(store));

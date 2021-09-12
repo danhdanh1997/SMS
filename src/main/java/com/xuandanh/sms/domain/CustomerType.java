@@ -21,6 +21,6 @@ public class CustomerType {
     @Column(name = "customer_type_name")
     private String customerTypeName;
 
-    @OneToMany(mappedBy="customerType",cascade={CascadeType.ALL,CascadeType.REMOVE},orphanRemoval = true)
-    private List<Customer>customers;
+//    @OneToMany(mappedBy="customerType",cascade={CascadeType.ALL,CascadeType.REMOVE},orphanRemoval = true)
+//    private List<Customer>customers;
 }

@@ -59,6 +59,6 @@ public class Customer {
     @JoinColumn(name = "customer_type_id", nullable = false,referencedColumnName = "customer_type_id")
     private CustomerType customerType;
 
-    @OneToMany(mappedBy="customer",cascade={CascadeType.ALL,CascadeType.REMOVE},orphanRemoval = true)
-    private Set<Order> orders = new HashSet<>();
+//    @OneToMany(mappedBy="customer",cascade={CascadeType.ALL,CascadeType.REMOVE},orphanRemoval = true)
+//    private Set<Order> orders = new HashSet<>();
 }
