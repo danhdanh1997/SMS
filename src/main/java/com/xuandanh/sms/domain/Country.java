@@ -26,6 +26,6 @@ public class Country {
     @Column(name = "last_update")
     private Instant lastUpdate = Instant.now();
 
-    @OneToMany(mappedBy="country",cascade={CascadeType.ALL,CascadeType.REMOVE},orphanRemoval = true)
-    private List<City>cities;
+//    @OneToMany(mappedBy="country",cascade={CascadeType.ALL,CascadeType.REMOVE},orphanRemoval = true)
+//    private List<City>cities;
 }

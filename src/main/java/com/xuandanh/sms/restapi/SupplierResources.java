@@ -2,6 +2,7 @@ package com.xuandanh.sms.restapi;
 
 import com.xuandanh.sms.domain.Supplier;
 import com.xuandanh.sms.dto.CityDTO;
+import com.xuandanh.sms.dto.ProductDTO;
 import com.xuandanh.sms.dto.SupplierDTO;
 import com.xuandanh.sms.exception.ResourceNotFoundException;
 import com.xuandanh.sms.mapper.SupplierMapper;
@@ -61,10 +62,16 @@ public class SupplierResources {
         return ResponseEntity.ok(supplierDTOList);
     }
 
-    @PostMapping("/city/{citiesId}/supplier")
+    @PostMapping("/city/{citiesId}/supplier/create")
     public ResponseEntity<?>create(@PathVariable(value = "citiesId")int citiesId,
                                    @Valid @RequestBody Supplier supplier){
-        return ResponseEntity.ok(supplierService.createSupplier(citiesId,supplier));
+        Optional<SupplierDTO>supplierDTO = supplierService.createSupplier(citiesId,supplier);
+        Map<String,Boolean>response = new HashMap<>();
+        if (supplierDTO.isEmpty()){
+            response.put("Object supplier invalid",Boolean.FALSE);
+            return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
+        }
+        return ResponseEntity.ok(supplierDTO);
     }
 
     @PutMapping("/city/{citiesId}/supplier/{supplierId}")

@@ -6,6 +6,8 @@ import com.xuandanh.sms.exception.MyResourceNotFoundException;
 import com.xuandanh.sms.mapper.CountryMapper;
 import com.xuandanh.sms.repository.CountryRepository;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,13 +18,15 @@ import java.util.Optional;
 public class CountryService {
     private final CountryRepository countryRepository;
     private final CountryMapper countryMapper;
-
+    private final Logger log = LoggerFactory.getLogger(CountryService.class);
 
     public Optional<CountryDTO> findOne(int countriesId){
-        return Optional.ofNullable(countryMapper
-                       .countryToCountryDTO(countryRepository
-                       .findById(countriesId)
-                       .orElseThrow(()-> new MyResourceNotFoundException("country with id:"+countriesId+" not exist"))));
+        Optional<Country>country = countryRepository.findById(countriesId);
+        if (country.isEmpty()){
+            log.error("country with id:"+countriesId+" not exist");
+            return Optional.empty();
+        }
+        return Optional.ofNullable(countryMapper.countryToCountryDTO(country.get()));
     }
 
 
@@ -34,16 +38,16 @@ public class CountryService {
         return Optional.ofNullable(countryMapper.countryToCountryDTO(countryRepository.save(country)));
     }
 
-    public CountryDTO updateCountry(Country country){
+    public Optional<CountryDTO> updateCountry(Country country){
        Optional<Country>country1 = countryRepository.findById(country.getCountriesId());
        if (country1.isEmpty()){
-           return null;
+           log.error("country with id:"+country.getCountriesId()+" not exist");
+           return Optional.empty();
        }
        Country countryUpdate = country1.get();
        countryUpdate.setCountriesName(country.getCountriesName());
        countryUpdate.setLastUpdate(country.getLastUpdate());
-       countryUpdate.setCities(country.getCities());
-       return countryMapper.countryToCountryDTO(countryUpdate);
+       return Optional.ofNullable(countryMapper.countryToCountryDTO(countryUpdate));
     }
 
     public void deleteCountry(Country country){

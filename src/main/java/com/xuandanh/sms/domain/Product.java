@@ -22,9 +22,7 @@ import java.util.List;
 @Entity
 @Table(name = "product")
 public class Product {
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid")
-    @Column(columnDefinition = "CHAR(10)",name = "product_id")
+    @Column(columnDefinition = "CHAR(32)",name = "product_id")
     @Id
     private String productId;
 
@@ -44,10 +42,14 @@ public class Product {
     private int unitsOnOrder;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "categories_id", nullable = false,referencedColumnName = "categories_id")
+    @JoinColumn(name = "categoriesId", nullable = false,referencedColumnName = "categories_id",insertable = false,updatable = false)
     private Category category;
 
+    private int categoriesId;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "suppliers_id", nullable = false,referencedColumnName = "suppliers_id")
+    @JoinColumn(name = "suppliersId", nullable = false,referencedColumnName = "suppliers_id",insertable = false,updatable = false)
     private Supplier supplier;
+
+    private int suppliersId;
 }

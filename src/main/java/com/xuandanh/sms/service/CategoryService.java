@@ -39,7 +39,6 @@ public class CategoryService {
                 .map(category1 -> {
                     category1.setCategoriesName(category.getCategoriesName());
                     category1.setLastUpdate(category.getLastUpdate());
-                    category1.setProducts(category.getProducts());
                     return categoryMapper.categoryToCategoryDTO(categoryRepository.save(category1));
                 }).orElseThrow(() -> new ResourceNotFoundException("category with id:" + category.getCategoriesId() + " not exist")));
     }

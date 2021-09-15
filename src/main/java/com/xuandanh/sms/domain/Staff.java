@@ -55,6 +55,18 @@ public class Staff {
 
     private int storeId;
 
+    public Staff(String staff_id,boolean active, String email, String first_name, String image_url, String last_name, String password, String username, int store_id) {
+        this.staffId = staff_id;
+        this.active = active;
+        this.email = email;
+        this.firstName = first_name;
+        this.imageUrl = image_url;
+        this.lastName = last_name;
+        this.password = password;
+        this.username = username;
+        this.storeId = store_id;
+    }
+
 //    @OneToMany(mappedBy="staff",cascade={CascadeType.ALL,CascadeType.REMOVE},orphanRemoval = true)
 //    private Set<Order> orders = new HashSet<>();
 }

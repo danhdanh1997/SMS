@@ -1,12 +1,15 @@
 package com.xuandanh.sms.service;
 
 import com.xuandanh.sms.domain.Supplier;
+import com.xuandanh.sms.dto.CityDTO;
 import com.xuandanh.sms.dto.SupplierDTO;
 import com.xuandanh.sms.exception.ResourceNotFoundException;
 import com.xuandanh.sms.mapper.SupplierMapper;
 import com.xuandanh.sms.repository.CityRepository;
 import com.xuandanh.sms.repository.SupplierRepository;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,12 +21,16 @@ public class SupplierService {
     private final SupplierRepository supplierRepository;
     private final SupplierMapper supplierMapper;
     private final CityRepository cityRepository;
+    private final CityService cityService;
+    private final Logger log = LoggerFactory.getLogger(SupplierService.class);
 
     public Optional<SupplierDTO>findOne(int supplierId){
-        return Optional.ofNullable(supplierMapper
-                .supplierToSupplierDTO(supplierRepository
-                .findById(supplierId)
-                .orElseThrow(()-> new ResourceNotFoundException("supplier with id:"+supplierId+" not exist"))));
+        Optional<Supplier>supplier = supplierRepository.findById(supplierId);
+        if (supplier.isEmpty()){
+            log.error("supplier with id:"+supplierId+" not exist");
+            return Optional.empty();
+        }
+        return Optional.ofNullable(supplierMapper.supplierToSupplierDTO(supplier.get()));
     }
 
     public Optional<List<SupplierDTO>>findAll(){
@@ -31,12 +38,12 @@ public class SupplierService {
     }
 
     public Optional<SupplierDTO>createSupplier(int citiesId, Supplier supplier){
-        return Optional.ofNullable(cityRepository
-                .findById(citiesId)
-                .map(city -> {
-                    supplier.setCitiesId(city.getCitiesId());
-                    return supplierMapper.supplierToSupplierDTO(supplierRepository.save(supplier));
-                }).orElseThrow(()->new ResourceNotFoundException("city with id:"+citiesId+" not exist")));
+        Optional<CityDTO>cityDTO = cityService.findOne(citiesId);
+        if (cityDTO.isEmpty()){
+            log.error("city with id:"+citiesId+" not exist");
+            return Optional.empty();
+        }
+        return Optional.ofNullable(supplierMapper.supplierToSupplierDTO(supplierRepository.save(supplier)));
     }
 
     public Optional<SupplierDTO>updateSupplier(int citiesId,Supplier supplier){

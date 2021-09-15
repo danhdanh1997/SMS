@@ -34,9 +34,8 @@ public class CountryResources {
         Map<String,Boolean>response = new HashMap<>();
         Optional<CountryDTO>countryDTO = countryService.findOne(countriesId);
         if (countryDTO.isEmpty()){
-            log.error("country with id:"+countriesId+" not exist in database");
             response.put("country with id:"+countriesId+" not exist in database",Boolean.FALSE);
-            return ResponseEntity.badRequest().body(response);
+            return new ResponseEntity<>(response,HttpStatus.NOT_FOUND);
         }
         log.info("info of country with id:"+countriesId+ ":"+countryDTO);
         return ResponseEntity.ok(countryDTO);
@@ -59,7 +58,13 @@ public class CountryResources {
 
     @PostMapping("/country/create")
     public ResponseEntity<?>create(@RequestBody Country country){
-        return ResponseEntity.ok(countryService.createCountry(country));
+        Optional<CountryDTO>countryDTO = countryService.createCountry(country);
+        Map<String,Boolean>response = new HashMap<>();
+        if (countryDTO.isEmpty()){
+            response.put("Object country invalid",Boolean.FALSE);
+            return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
+        }
+        return ResponseEntity.ok(countryDTO);
     }
 
     @PutMapping("/country/update/{countriesId}")
@@ -68,12 +73,11 @@ public class CountryResources {
             Optional<CountryDTO>countryDTO = countryService.findOne(countriesId);
             Map<String,Boolean>response = new HashMap<>();
                 if(countryDTO.isPresent()){
-                    log.info("update information of country with id:"+countriesId+" successfully");
                     response.put("update information of country with id:"+countriesId+" successfully",Boolean.TRUE);
                     return ResponseEntity.ok(countryService.updateCountry(country));
                 }
                 response.put("country with id:"+countriesId+" not exist in database",Boolean.FALSE);
-                return ResponseEntity.ok(response);
+                return new ResponseEntity<>(response,HttpStatus.NOT_FOUND);
             }catch (MyResourceNotFoundException e){
             log.error("country with id:"+countriesId+" not exist");
             throw new MyResourceNotFoundException("country with id:"+countriesId+"  not exist");

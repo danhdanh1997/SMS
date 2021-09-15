@@ -9,6 +9,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.math.BigInteger;
 import java.time.Instant;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class Supplier {
     private String supplierName;
 
     @Column(name = "phone")
-    private long phone;
+    private BigInteger phone;
 
     @Column(name = "website_url")
     private String websiteUrl;

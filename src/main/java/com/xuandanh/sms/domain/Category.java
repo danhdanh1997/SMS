@@ -23,6 +23,6 @@ public class Category {
     @Column(name = "last_update")
     private Instant lastUpdate  = Instant.now();
 
-    @OneToMany(mappedBy="category")
-    private List<Product> products;
+//    @OneToMany(mappedBy="category")
+//    private List<Product> products;
 }
