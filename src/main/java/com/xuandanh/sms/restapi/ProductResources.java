@@ -70,9 +70,9 @@ public class ProductResources {
         Map<String,Boolean>response = new HashMap<>();
         if (productDTO.isEmpty()){
             response.put("Object product invalid",Boolean.FALSE);
-            return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(response,HttpStatus.CONFLICT);
         }
-        return ResponseEntity.ok(productDTO);
+        return new ResponseEntity<>(productDTO,HttpStatus.CREATED);
     }
 
     @PutMapping("/supplier/{suppliersId}/category/{categoriesId}/product/{productId}/update")

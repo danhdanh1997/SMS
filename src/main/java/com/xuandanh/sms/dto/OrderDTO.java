@@ -12,13 +12,12 @@ import java.util.Date;
 public class OrderDTO {
     private String orderId;
     private Date orderDate;
-    private Date requiredDate;
     private Date shippedDate;
     private BigDecimal freight;
     private String shipName;
     private String shipAddress;
     private String shipCode;
     private CityDTO cityDTO;
-    private String productId;
+    private String customerId;
     private String staffId;
 }

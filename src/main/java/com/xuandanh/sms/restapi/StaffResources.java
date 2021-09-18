@@ -159,21 +159,17 @@ public class StaffResources {
 
     @GetMapping("/export-staffs")
     public void exportCSV(HttpServletResponse response) throws Exception {
-
         //set file name and content type
         String filename = "staffs.csv";
-
         response.setContentType("text/csv");
         response.setHeader(HttpHeaders.CONTENT_DISPOSITION,
                 "attachment; filename=\"" + filename + "\"");
-
         //create a csv writer
         StatefulBeanToCsv<Staff> writer = new StatefulBeanToCsvBuilder<Staff>(response.getWriter())
                 .withQuotechar(CSVWriter.NO_QUOTE_CHARACTER)
                 .withSeparator(CSVWriter.DEFAULT_SEPARATOR)
                 .withOrderedResults(false)
                 .build();
-
         //write all users to csv file
         writer.write(staffRepository.findAll());
     }
